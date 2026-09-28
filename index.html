@@ -1499,48 +1499,25 @@ if (npiValue) {
     }, 100);
 
 }
-// =====================
-// STATE LICENSE NUMBER
-// =====================
+
 // =====================
 // STATE LICENSE NUMBER
 // =====================
 
 let licenseValue = "";
 
-// Only search inside Professional IDs section
-let profIdsOnly = "";
-
-let startLic = txt.indexOf("Professional IDs");
-let endLic = txt.indexOf("Education and Training");
-
-if (startLic > -1 && endLic > startLic) {
-    profIdsOnly = txt.substring(startLic, endLic);
-} else {
-    profIdsOnly = txt;
-}
-
-// Direct match: AC-14446 STATE LICENSE NUMBER
-let directLic = profIdsOnly.match(
-    /([A-Z0-9\-]{3,25})\s+STATE LICENSE NUMBER/i
-);
-
-if (directLic) {
-    licenseValue = directLic[1];
-}
-
-let licMatch1 = profIdsOnly.match(
+let licMatch1 = txt.match(
     /([A-Z0-9\-]{4,20})\s+[A-Z]{2}\s+\d{2}\/\d{2}\/\d{4}|([A-Z0-9]{3,15})\s+[A-Z]{2}\s+X\s+\d{2}\/\d{2}\/\d{4}/i
 );
 
-if (!licenseValue && licMatch1) {
+if (licMatch1) {
 
     licenseValue =
         licMatch1[1] || licMatch1[2] || "";
 
-} else if (!licenseValue) {
+} else {
 
-    let licMatch2 = profIdsOnly.match(
+    let licMatch2 = txt.match(
         /([A-Z0-9\-]{3,20})\s+STATE LICENSE NUMBER/i
     );
 
@@ -1548,18 +1525,15 @@ if (!licenseValue && licMatch1) {
         licenseValue = licMatch2[1];
     }
 }
-
-let spinMatch = profIdsOnly.match(
+let spinMatch = txt.match(
     /([A-Z0-9\.\-]+\s+SPIN)\s*STATE LICENSE NUMBER/i
 );
 
 if (spinMatch) {
     licenseValue = spinMatch[1];
 }
-
 document.getElementById("txtLicence").value =
     licenseValue;
-
 // =====================
 // L2 ONLY
 // =====================
