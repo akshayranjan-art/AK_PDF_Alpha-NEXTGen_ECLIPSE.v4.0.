@@ -1536,8 +1536,22 @@ if (npiValue) {
 // STATE LICENSE NUMBER
 // =====================
 // =====================
-// STATE LICENSE NUMBER
+// L3 FALLBACK
 // =====================
+
+let l3Match = txt.match(
+    /([A-Za-z0-9\-]{2,30})\s*[\r\n]+\s*STATE LICENSE NUMBER/i
+);
+
+if (l3Match) {
+    document.getElementById("txtL3").value =
+        l3Match[1].trim().toUpperCase();
+}
+
+
+
+
+
 
 let licenseValue = "";
 let licenseValue3 = "";
